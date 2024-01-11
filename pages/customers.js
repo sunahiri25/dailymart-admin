@@ -23,7 +23,7 @@ export default function CustomersPage() {
     }, [store]);
     return (
         <Layout>
-            <h1>Customners</h1>
+            <h1>Customers</h1>
             <table className="basic mt-4">
                 <thead>
                     <tr>
