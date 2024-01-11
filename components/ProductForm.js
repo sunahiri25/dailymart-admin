@@ -55,7 +55,6 @@ export default function ProductForm({
             setBrands(res.data);
             if (res.data.length > 0) {
                 const optionListBrand = res.data.map(brand => (
-                    brand.active === 'Active' &&
                     {
                         value: brand._id,
                         label: brand.name
