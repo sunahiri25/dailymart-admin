@@ -8,6 +8,15 @@ export default function StockPage() {
     const [stock, setStock] = useState([]);
     const [store, setStore] = useState();
     const session = useSession();
+    const [showMore, setShowMore] = useState(1);
+
+    function handleShowMore() {
+        setShowMore(showMore + 1);
+    }
+
+    function handleShowLess() {
+        setShowMore(1);
+    }
     useEffect(() => {
         axios.get('/api/stores').then(res => {
             res.data.map(s => {
@@ -36,7 +45,7 @@ export default function StockPage() {
                     </tr>
                 </thead>
                 <tbody>
-                    {stock.length > 0 && stock.map(stock => (
+                    {stock.length > 0 && stock.sort((a, b) => a.product?.title.localeCompare(b.product?.title)).slice(0, showMore * 10 < stock.length ? showMore * 10 : stock.length).map(stock => (
                         <tr key={stock._id}>
                             <td>{stock.product?.title}</td>
                             <td>{stock.quantity}</td>
@@ -50,6 +59,14 @@ export default function StockPage() {
                     ))}
                 </tbody>
             </table>
+            <div className="flex gap-5">
+                {showMore * 10 < stock.length && stock.length > 10 && (
+                    <button onClick={handleShowMore} className="btn-primary mt-2">More</button>
+                )}
+                {showMore > 1 && (
+                    <button onClick={handleShowLess} className="btn-primary mt-2">Hide</button>
+                )}
+            </div>
         </Layout>
     )
 }
