@@ -19,7 +19,8 @@ export default async function handler(req, res) {
 
     if (method === 'POST') {
         const { store, product, quantity, date } = req.body;
-        if (Store.findOne({ product, store })) {
+        const s = await Store.find({ $and: [{ store: store }, { product: product._id }] });
+        if (s.length > 0) {
             res.status(400).json({ message: 'Stock already exists' });
             return;
         }
