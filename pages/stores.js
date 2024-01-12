@@ -18,7 +18,7 @@ export default function StoresPage() {
                         <td>Name</td>
                         <td>Address</td>
                         <td>Phone</td>
-                        <td>Manager ID</td>
+                        <td>Manager</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,7 +28,7 @@ export default function StoresPage() {
                             <td>{store.name}</td>
                             <td>{store.address}</td>
                             <td>{store.phone}</td>
-                            <td>{store?.manager?._id}</td>
+                            <td>{store?.manager?.email}</td>
                         </tr>
                     ))}
                 </tbody>
