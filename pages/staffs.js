@@ -20,7 +20,7 @@ export default function AdminsPage() {
         );
     }, [session]);
     useEffect(() => {
-        if(store !== undefined) axios.get('/api/staffs?store=' + store?._id).then(res => setStaffs(res.data));
+        if(store) axios.get('/api/staffs?store=' + store?._id).then(res => setStaffs(res.data));
     }, [store]);
     return (
         <Layout>

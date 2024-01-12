@@ -9,7 +9,8 @@ export default async function handler(req, res) {
     const { method } = req
     await mongooseConnect();
     await isAdminRequest(req, res)
-
+    await User.find({});
+    
     if (method === 'GET') {
         if (req.query?.id) {
             const staffInfo = await Staff.findOne({ _id: req.query.id }).populate('account');

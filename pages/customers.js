@@ -19,7 +19,7 @@ export default function CustomersPage() {
         );
     }, [session]);
     useEffect(() => {
-        if (store !== undefined) axios.get('/api/customers?store=' + store?._id).then(res => setCustomers(res.data));
+        if (store) axios.get('/api/customers?store=' + store?._id).then(res => setCustomers(res.data));
     }, [store]);
     return (
         <Layout>

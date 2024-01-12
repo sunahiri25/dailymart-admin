@@ -6,7 +6,8 @@ import { Category } from '@/models/Category';
 export default async function handler(req, res) {
     const { method } = req
     await mongooseConnect();
-    await isAdminRequest(req, res)
+    await isAdminRequest(req, res);
+    await Category.find({});
 
     if (method === 'GET') {
         if (req.query?.id) {

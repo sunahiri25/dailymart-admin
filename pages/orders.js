@@ -19,7 +19,7 @@ export default function OrdersPage() {
         );
     }, [session]);
     useEffect(() => {
-        if (store !== undefined) axios.get('/api/orders?store=' + store?._id).then(res => setOrders(res.data));
+        if (store) axios.get('/api/orders?store=' + store?._id).then(res => setOrders(res.data));
     }, [store]);
 
     return (

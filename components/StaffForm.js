@@ -37,7 +37,7 @@ export default function StaffForm({
     }, []);
 
     useEffect(() => {
-        if (store !== undefined && store !== '') {
+        if (store) {
             axios.get('/api/stores?id=' + store).then(res => {
                 if (res.data?.manager) {
                     setManager(res.data.manager);
