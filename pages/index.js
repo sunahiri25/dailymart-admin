@@ -35,7 +35,7 @@ export default function Home() {
           const todayOrders = ordersData.filter(order => {
             const orderDate = new Date(order.createdAt);
             orderDate.setHours(0, 0, 0, 0);
-            return orderDate.getTime() === today.getTime() && (order.paid || order.paymentMethod === 'cod');
+            return orderDate.getTime() === today.getTime() && (order.paid || order.paymentMethod === 'cash');
           });
           setOrders(todayOrders.length);
           setRevenue(todayOrders.reduce((acc, cur) => acc + cur.total, 0));
