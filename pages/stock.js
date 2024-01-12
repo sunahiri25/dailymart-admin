@@ -35,10 +35,12 @@ export default function StockPage() {
             <Link className="bg-blue-900 text-white py-1 px-2 rounded-md " href={'/stock/new'}>
                 Add new stock
             </Link>
+            <h1 className="mt-2">Number of stock: {stock.length}</h1>
             <table className="basic mt-4">
                 <thead>
                     <tr>
-                        <td>Product</td>
+                        <td>Product ID</td>
+                        <td>Product name</td>
                         <td>Quantity</td>
                         <td>Date</td>
                         <td></td>
@@ -47,6 +49,7 @@ export default function StockPage() {
                 <tbody>
                     {stock.length > 0 && stock.sort((a, b) => a.product?.title.localeCompare(b.product?.title)).slice(0, showMore * 10 < stock.length ? showMore * 10 : stock.length).map(stock => (
                         <tr key={stock._id}>
+                            <td>{stock.product?._id}</td>
                             <td>{stock.product?.title}</td>
                             <td>{stock.quantity}</td>
                             <td>{new Date(stock.date).toLocaleDateString('vi')}</td>

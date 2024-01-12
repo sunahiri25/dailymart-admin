@@ -95,10 +95,11 @@ function Categories({ swal }) {
                 <input className='mb-0' type="number" placeholder={"VAT"} value={vat} onChange={e => setVat(e.target.value)} />
                 <button className="btn-primary py-1 " type="submit">Save</button>
             </form>
-
+            <h1 className="mt-2">Number of categories: {categories.length}</h1>
             <table className="basic mt-4">
                 <thead>
                     <tr>
+                        <td>Category ID</td>
                         <td>Category Name</td>
                         <td>Parent Category</td>
                         <td>VAT (%)</td>
@@ -108,6 +109,7 @@ function Categories({ swal }) {
                 <tbody>
                     {categories.slice(0, showMore * 10 < categories.length ? showMore * 10 : categories.length).map(category => (
                         <tr key={category._id}>
+                            <td>{category._id}</td>
                             <td>{category.name}</td>
                             <td>{category?.parent?.name}</td>
                             <td>{category.vat}</td>

@@ -24,9 +24,11 @@ export default function Products() {
             <Link className="bg-blue-900 text-white py-1 px-2 rounded-md " href={'/products/new'}>
                 Add new product
             </Link>
+            <h1 className="mt-2">Number of products: {products.length}</h1>
             <table className="basic mt-2">
                 <thead>
                     <tr>
+                        <td>Product ID</td>
                         <td>Product Name</td>
                         <td></td>
                     </tr>
@@ -34,6 +36,7 @@ export default function Products() {
                 <tbody>
                     {products.slice(0, showMore * 10 < products.length ? showMore * 10 : products.length).map(product => (
                         <tr key={product._id}>
+                            <td>{product._id}</td>
                             <td>{product.title}</td>
                             <td className='flex gap-1'>
                                 <Link href={'/products/edit/' + product._id}>

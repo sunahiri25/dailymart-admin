@@ -1,12 +1,14 @@
 import Layout from "@/components/Layout";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function OrdersPage() {
     const [orders, setOrders] = useState([]);
     const [store, setStore] = useState();
     const session = useSession();
+    const [showMore, setShowMore] = useState(1);
     useEffect(() => {
         axios.get('/api/stores').then(res => {
             res.data.map(s => {
@@ -21,39 +23,38 @@ export default function OrdersPage() {
     useEffect(() => {
         if (store) axios.get('/api/orders?store=' + store?._id).then(res => setOrders(res.data));
     }, [store]);
+    function handleShowMore() {
+        setShowMore(showMore + 1);
+    }
 
+    function handleShowLess() {
+        setShowMore(1);
+    }
     return (
         <Layout>
             <h1>Orders</h1>
+            <h2 className="text-blue-900 text-lg">Number of orders: {orders.length}</h2>
             <table className="basic mt-4">
                 <thead>
                     <tr>
                         <td>Date</td>
+                        <td>Order ID</td>
                         <td>Payment</td>
                         <td>Paid</td>
                         <td>Total</td>
-                        <td>Recipient</td>
                         <td>Products</td>
                         <td>Process</td>
                     </tr>
                 </thead>
                 <tbody>
-                    {orders.length > 0 && orders.map(order => (
+                    {orders.length > 0 && orders.slice(0, showMore * 10 < orders.length ? showMore * 10 : orders.length).map(order => (
                         <tr key={order._id}>
                             <td>{(new Date(order.createdAt)).toLocaleString()}</td>
+                            <td><Link className='bg-white text-black' href={'/orders/' + order._id}>{order._id}</Link></td>
                             <td className="text-center">{order.paymentMethod}</td>
                             <td className={order.paid ? "text-green-600 text-center" : "text-red-600 text-center"}>{order.paid ? 'YES' : 'NO'}</td>
                             <td>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.total)}</td>
-                            <td>
-                                {order.name} {order.email}<br />
-                                {order.phone} <br />
-                                {order.address && (
-                                    <>
-                                        {order.address}, {order.ward}, {order.district}, {order.city}
-                                    </>
-                                )}
 
-                            </td>
                             <td>
                                 {
                                     order.address && (
@@ -82,6 +83,14 @@ export default function OrdersPage() {
                     ))}
                 </tbody>
             </table>
+            <div className="flex gap-5">
+                {showMore * 10 < orders.length && orders.length > 10 && (
+                    <button onClick={handleShowMore} className="btn-primary mt-2">More</button>
+                )}
+                {showMore > 1 && (
+                    <button onClick={handleShowLess} className="btn-primary mt-2">Hide</button>
+                )}
+            </div>
         </Layout>
     )
 }

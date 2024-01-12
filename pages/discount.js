@@ -16,9 +16,11 @@ export default function DiscountPage() {
             <Link className="bg-blue-900 text-white py-1 px-2 rounded-md " href={'/discount/new'}>
                 Add new discount
             </Link>
+            <h1 className="mt-2">Number of discounts: {discounts.length}</h1>
             <table className="basic mt-2">
                 <thead>
                     <tr>
+                        <td>Discount ID</td>
                         <td>Discount Name</td>
                         <td>Category</td>
                         <td></td>
@@ -27,6 +29,7 @@ export default function DiscountPage() {
                 <tbody>
                     {discounts.map(discount => (
                         <tr key={discount._id}>
+                            <td>{discount._id}</td>
                             <td>{discount.name}</td>
                             <td>
                                 {discount.category?.name}
