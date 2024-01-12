@@ -2,7 +2,6 @@ import Layout from "@/components/Layout";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { Chart } from "chart.js";
 
 export default function Home() {
   const session = useSession();
@@ -106,7 +105,7 @@ export default function Home() {
         }
       }
     };
-    
+
     fetchDashboardData();
   }, [store]);
   useEffect(() => {
