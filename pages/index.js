@@ -75,7 +75,6 @@ export default function Home() {
             }
           }
           setWeekProfit(weekOrdersData.reduce((acc, cur) => acc + cur.total, 0) - weekCost);
-          console.log(weekOrdersData);
           const monthStart = new Date();
           monthStart.setDate(1);
           monthStart.setHours(0, 0, 0, 0);
